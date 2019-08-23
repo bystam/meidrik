@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.lang.RuntimeException
 import java.time.Instant
-import java.util.*
 import javax.validation.Valid
 
 @RestController
@@ -38,7 +37,7 @@ class GuestController {
         return ResponseEntity.ok(rsvpRepository.save(rsvp))
     }
 
-    data class Guests(val rsvps: List<Guest>)
+    data class Guests(val guests: List<Guest>)
 
     @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Guest not found")
     class NotFound: RuntimeException()

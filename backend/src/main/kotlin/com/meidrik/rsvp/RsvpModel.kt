@@ -3,6 +3,7 @@ package com.meidrik.rsvp
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonManagedReference
+import org.hibernate.annotations.JoinFormula
 import org.hibernate.annotations.Where
 import java.time.Instant
 import javax.persistence.*
@@ -13,8 +14,8 @@ data class Guest(
 ) {
     @Id @GeneratedValue val id: Long = -1
 
-    @OneToOne(mappedBy = "guest")
-    @Where(clause = "deleted_at IS NULL")
+    @ManyToOne
+    @JoinFormula("(SELECT rsvp.id FROM rsvp WHERE rsvp.guest_id = id AND rsvp.deleted_at IS NULL)")
     @JsonManagedReference
     var currentRsvp: Rsvp? = null
 }
@@ -27,7 +28,7 @@ data class Rsvp(
     @Column(nullable = false) val createdAt: Instant = Instant.now()
     @Column var deletedAt: Instant? = null
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "guest_id")
     @JsonBackReference
     lateinit var guest: Guest
