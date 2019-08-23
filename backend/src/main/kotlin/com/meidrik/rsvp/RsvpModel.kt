@@ -1,16 +1,13 @@
 package com.meidrik.rsvp
 
-import org.hibernate.annotations.Table
 import java.time.Instant
 import java.util.*
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
 data class Rsvp(
-    @Id @GeneratedValue
-    val id: UUID,
-    val name: String,
-    val time: Instant
+    @Id val id: UUID = UUID.randomUUID(),
+    @Column(nullable = false) val name: String,
+    @Column(nullable = false) val time: Instant = Instant.now(),
+    @Column(nullable = true) val foodPreferences: String?
 )
