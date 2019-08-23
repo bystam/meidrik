@@ -33,9 +33,11 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version" // Required for Kotlin integration
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
     implementation "org.springframework.boot:spring-boot-starter-web"
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation "mysql:mysql-connector-java"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
 compileKotlin {
